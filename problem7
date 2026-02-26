@@ -1,0 +1,44 @@
+import math
+
+def get_gcd(a, b):
+    while b:
+        a, b = b, a % b
+    return a
+
+def is_prime(n):
+    if n < 2:
+        return False
+    for i in range(2, int(math.sqrt(n))+1):
+        if n % i == 0:
+            return False
+    return True
+
+def fibonacci_simulator():
+    n = int(input("Enter number of terms (N >= 3): "))
+    if n < 3:
+        print("Please enter N >= 3")
+        return
+
+    fib = [0, 1]
+    for i in range(2, n):
+        fib.append(fib[i-1] + fib[i-2])
+
+    print("\nFibonacci Series:", fib)
+
+    if n >= 10:
+        s10 = sum(fib[:10])
+        print(f"\nProperty A: Sum of first 10 terms = {s10} -> Divisible by 11? {s10 % 11 == 0}")
+
+    print("\nProperty B: Consecutive terms co-prime check:")
+    for i in range(1, n):
+        print(f"GCD({fib[i-1]}, {fib[i]}) = {get_gcd(fib[i-1], fib[i])}")
+
+    sum_n = sum(fib[:n])
+    print(f"\nProperty C: Sum of first {n} terms = {sum_n} -> Fib({n+2}) - 1 = {fib[n]+fib[n+1]-1}")
+
+    print("\nProperty D: Fibonacci numbers at composite positions:")
+    for i in range(4, n):
+        if not is_prime(i):
+            print(f"Position {i} -> Fib({i}) = {fib[i]}")
+
+fibonacci_simulator()
