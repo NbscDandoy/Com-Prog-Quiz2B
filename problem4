@@ -1,0 +1,12 @@
+def compound_interest_calculator():
+    principal = float(input("Enter initial amount: "))
+    years = int(input("Enter number of years: "))
+    rate = float(input("Enter interest rate (%): ")) / 100
+
+    for year in range(1, years + 1):
+        principal = principal * (1 + rate)
+        print("Year", year, ":", round(principal, 2))
+
+    print("Final amount:", round(principal, 2))
+
+compound_interest_calculator()
