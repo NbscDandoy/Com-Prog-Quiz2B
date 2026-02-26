@@ -1,0 +1,49 @@
+import math
+
+def analyze_three_points():
+    print("THREE-POINT ANALYSIS")
+
+    p1 = tuple(map(float, input("Enter P1 x y: ").split()))
+    p2 = tuple(map(float, input("Enter P2 x y: ").split()))
+    p3 = tuple(map(float, input("Enter P3 x y: ").split()))
+
+    area = 0.5 * abs(p1[0]*(p2[1]-p3[1]) + p2[0]*(p3[1]-p1[1]) + p3[0]*(p1[1]-p2[1]))
+    collinear = math.isclose(area, 0, abs_tol=1e-9)
+
+    if collinear:
+        print("\n[Points are Collinear]")
+        dx, dy = p2[0]-p1[0], p2[1]-p1[1]
+        if dx == 0:
+            print(f"Line: x = {p1[0]}")
+            m = None
+        else:
+            m = dy/dx
+            b = p1[1] - m*p1[0]
+            print(f"Line: y = {m:.2f}x + {b:.2f}")
+
+        for a,b in [(p1,p2),(p2,p3),(p1,p3)]:
+            mid = ((a[0]+b[0])/2, (a[1]+b[1])/2)
+            print(f"Midpoint {a}-{b}: {mid}")
+
+        for pt in [p1,p2,p3]:
+            if m is None:  
+                print(f"Perp line through {pt}: y = {pt[1]}")
+            elif m == 0:  
+                print(f"Perp line through {pt}: x = {pt[0]}")
+            else:
+                m_perp = -1/m
+                b_perp = pt[1] - m_perp*pt[0]
+                print(f"Perp line through {pt}: y = {m_perp:.2f}x + {b_perp:.2f}")
+    else:
+        print("\n[Points are NOT Collinear]")
+
+        dist = lambda a,b: math.hypot(b[0]-a[0], b[1]-a[1])
+        print(f"Distances: P1-P2={dist(p1,p2):.2f}, P2-P3={dist(p2,p3):.2f}, P3-P1={dist(p3,p1):.2f}")
+        print(f"Area: {area:.2f}")
+
+        v = [(p1[0]+p2[0]-p3[0], p1[1]+p2[1]-p3[1]),
+             (p1[0]+p3[0]-p2[0], p1[1]+p3[1]-p2[1]),
+             (p2[0]+p3[0]-p1[0], p2[1]+p3[1]-p1[1])]
+        print("Possible parallelogram points:", v)
+
+analyze_three_points()
