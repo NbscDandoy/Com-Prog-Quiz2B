@@ -1,0 +1,12 @@
+import math
+
+def generate_catalan_series():
+    n_terms = int(input("Enter the number of terms: "))
+
+    catalan = []
+    for n in range(n_terms):
+        term = math.comb(2*n, n) // (n+1)  # Catalan formula
+        catalan.append(term)
+        print(f"C({n}) = {term}")
+
+generate_catalan_series()
