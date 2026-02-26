@@ -1,0 +1,65 @@
+import math
+
+def analyze_parabola():
+    print("--- ☀️ SUN 14: PARABOLA ANALYSIS ---")
+    print("Equation form: y = Ax^2 + Bx + C")
+    
+    try:
+        a = float(input("Enter A: "))
+        if a == 0:
+            print("A cannot be zero for a quadratic equation.")
+            return
+        b = float(input("Enter B: "))
+        c = float(input("Enter C: "))
+
+        # 3. Vertex (h, k)
+        # h = -b / 2a
+        h = -b / (2 * a)
+        k = (a * h**2) + (b * h) + c
+        
+        # Distance from vertex to focus (p)
+        # Formula: 4ap = 1 => p = 1 / (4a)
+        p = 1 / (4 * a)
+
+        # 1. Focus
+        focus = (h, k + p)
+
+        # 2. Latus Rectum Length
+        # Length = |4p| or |1/a|
+        lr_length = abs(1 / a)
+
+        # 4. Intercepts
+        # Y-intercept: set x = 0
+        y_intercept = c
+        
+        # X-intercepts: solve Ax^2 + Bx + C = 0 using quadratic formula
+        discriminant = b**2 - 4*a*c
+        x_intercepts = []
+        if discriminant > 0:
+            x1 = (-b + math.sqrt(discriminant)) / (2 * a)
+            x2 = (-b - math.sqrt(discriminant)) / (2 * a)
+            x_intercepts = [round(x1, 2), round(x2, 2)]
+        elif discriminant == 0:
+            x_intercepts = [round(-b / (2 * a), 2)]
+
+        # 5. Slope at a given point (Derivative)
+        # dy/dx = 2Ax + B
+        px = float(input("\nEnter an x-coordinate to find the slope at that point: "))
+        slope = (2 * a * px) + b
+
+        print("\n--- RESULTS ---")
+        print(f"Vertex: ({h:.2f}, {k:.2f})")
+        print(f"Focus: ({focus[0]:.2f}, {focus[1]:.2f})")
+        print(f"Latus Rectum Length: {lr_length:.2f}")
+        print(f"Y-intercept: (0, {y_intercept:.2f})")
+        if x_intercepts:
+            print(f"X-intercept(s): {x_intercepts}")
+        else:
+            print("X-intercepts: None (Does not cross x-axis)")
+        print(f"Slope at x={px}: {slope:.2f}")
+
+    except ValueError:
+        print("Invalid input! Please enter numbers.")
+
+if __name__ == "__main__":
+    analyze_parabola()
