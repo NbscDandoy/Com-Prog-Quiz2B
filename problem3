@@ -1,0 +1,11 @@
+import math
+
+def calculate_arrangements():
+    guests = int(input("Enter the total number of guests: "))
+    chairs = int(input("Enter number of available chairs: "))
+
+    arrangements = math.perm(guests, chairs)
+
+    print("Total possible arrangements:", arrangements)
+
+calculate_arrangements()
