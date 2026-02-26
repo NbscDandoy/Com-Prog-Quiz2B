@@ -1,0 +1,37 @@
+import math
+
+def analyze_lines():
+    print("LINE ANALYSIS")
+
+    x1, y1 = float(input("P1 x: ")), float(input("P1 y: "))
+    x2, y2 = float(input("P2 x: ")), float(input("P2 y: "))
+    x3, y3 = float(input("P3 x: ")), float(input("P3 y: "))
+    x4, y4 = float(input("P4 x: ")), float(input("P4 y: "))
+
+    m1 = None if x2 == x1 else (y2 - y1) / (x2 - x1)
+    m2 = None if x4 == x3 else (y4 - y3) / (x4 - x3)
+
+    b1 = x1 if m1 is None else y1 - m1 * x1
+    b2 = x3 if m2 is None else y3 - m2 * x3
+
+    if m1 == m2:
+        if b1 == b2:
+            print("Coinciding Lines")
+        else:
+            print("Parallel Lines")
+    else:
+    
+        if m1 is None:
+            x = b1
+            y = m2 * x + b2
+        elif m2 is None:
+            x = b2
+            y = m1 * x + b1
+        else:
+            x = (b2 - b1) / (m1 - m2)
+            y = m1 * x + b1
+
+        print("Intersecting Lines")
+        print("Intersection:", (round(x,2), round(y,2)))
+
+analyze_lines()
